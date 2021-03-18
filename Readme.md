@@ -131,13 +131,20 @@ Following there is a online version of Fronted deployed in GitHub pages:
 ## Frontend screenshots
 
 ![alt text](docs/frontend_1.png "Token")
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 ## Optional: Implement Infura to store product image
 
 Optional: Implement Infura to store product image
 
+<<<<<<< Updated upstream
 Ex: Manufacturer uploads Drug pics w/ UPC hash
+=======
+Ex: Drug pics w/ UPC hash
+>>>>>>> Stashed changes
 Potentially only 2 methods needed upload() and read()
 
 

@@ -13,7 +13,11 @@
 		- [Transaction Hashes](#transaction-hashes)
 		- [Etherscan screenshots](#etherscan-screenshots)
 - [Frontend](#frontend)
+<<<<<<< Updated upstream
 	- [Frontend Online - Vue](#frontend-online---vue))
+=======
+	- [Frontend Online - Vue](#frontend-online---vue)
+>>>>>>> Stashed changes
 	- [Frontend screenshots](#frontend-screenshots)
 
 # Smart Contract - step by step
@@ -89,7 +93,6 @@ test
 ![](docs/test_output.png)
 
 
-
 # Deployment
 
 ## Ganache
@@ -106,7 +109,7 @@ skin impose this task range body amused apple spin jazz inhale bench
 edit line 24 of ./truffle-config.js and replace with your Infura Key:
 
 ```js
-24:   const infuraKey = "c216e74355924a518e5d0d183e67b23c";	// INFURA - PROJECT ID
+24:   const infuraKey = "c216...";	// INFURA - PROJECT ID
 ```
 
 ## Get some funds
@@ -211,7 +214,6 @@ contract address:    0x4DF57E0D3Fdd839223445A965c77F1FE3E1b5A24
 deployment transaction hash:   <https://rinkeby.etherscan.io/tx/0x1d1610918c0f5b5af92c8131048acaae360dbba09ff8c3d8c89b8e4e3d744d7e>
 
 
-
 ### Etherscan screenshots
 
 <https://rinkeby.etherscan.io/address/0x82EE57820D2e9d4b1b2eCe739FEEc0acA61e3213>
@@ -232,7 +234,11 @@ Then follow the instruction in [link](../appvue/)
 ## Frontend Online - Vue
 
 Following there is a online version of Fronted deployed in GitHub pages:
+<<<<<<< Updated upstream
 [https://lucribas.github.io/prj3_Dapp_Supply_Chain/index.html](https://lucribas.github.io/prj3_Dapp_Supply_Chain/index.html).
+=======
+[https://kirinshibori.github.io/DrugChainUI/](https://kirinshibori.github.io/DrugChainUI/).
+>>>>>>> Stashed changes
 
 
 ## Frontend screenshots

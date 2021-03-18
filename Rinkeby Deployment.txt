@@ -1,0 +1,128 @@
+User@ChoonLing-XPS13 MINGW64 /d/SGUS Course/Blockchain Intermediate Course/Project/DrugChain/DrugChainDAPP (master)
+$ truffle migrate --network rinkeby --reset
+
+===========================
+> Compiling .\contracts\access\Roles.sol
+> Compiling .\contracts\access\roles\ConsumerRole.sol
+> Compiling .\contracts\access\roles\DistributorRole.sol
+> Compiling .\contracts\access\roles\FarmerRole.sol
+> Compiling .\contracts\access\roles\InspectorRole.sol
+> Compiling .\contracts\access\roles\ProducerRole.sol
+> Compiling .\contracts\core\Ownable.sol
+> Artifacts written to D:\SGUS Course\Blockchain Intermediate Course\Project\DrugChain\DrugChainDAPP\build\contracts                                                                                                                  s
+> Compiled successfully using:
+   - solc: 0.6.12+commit.27d51765.Emscripten.clang
+
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-fork'
+> Network id:      4
+> Block gas limit: 10000000 (0x989680)
+
+
+1_initial_migration.js
+======================
+
+   Replacing 'Migrations'
+   ----------------------
+   > block number:        8254419
+   > block timestamp:     1616049491
+   > account:             0x0BC85Ee983E7098Ceb32a775B81299f047d54e8b
+   > balance:             156.564444777
+   > gas used:            205035 (0x320eb)
+   > gas price:           21 gwei
+   > value sent:          0 ETH
+   > total cost:          0.004305735 ETH
+
+   -------------------------------------
+   > Total cost:         0.004305735 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Replacing 'SupplyChain'
+   -----------------------
+   > block number:        8254421
+   > block timestamp:     1616049539
+   > account:             0x0BC85Ee983E7098Ceb32a775B81299f047d54e8b
+   > balance:             156.487431981
+   > gas used:            3639916 (0x378a6c)
+   > gas price:           21 gwei
+   > value sent:          0 ETH
+   > total cost:          0.076438236 ETH
+
+   -------------------------------------
+   > Total cost:         0.076438236 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.080743971 ETH
+
+
+
+
+
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 10000000 (0x989680)
+
+
+1_initial_migration.js
+======================
+
+   Replacing 'Migrations'
+   ----------------------
+   > transaction hash:    0x2e9baa12f2c32e946d25e79884ec8e7397eeeda6f11a3c3c56d23a67b6a14743
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x6D198422B7aF2F06128FcF8f829b31F6e79e6674
+   > block number:        8254424
+   > block timestamp:     1616049573
+   > account:             0x0BC85Ee983E7098Ceb32a775B81299f047d54e8b
+   > balance:             156.564129777
+   > gas used:            220035 (0x35b83)
+   > gas price:           21 gwei
+   > value sent:          0 ETH
+   > total cost:          0.004620735 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:         0.004620735 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Replacing 'SupplyChain'
+   -----------------------
+   > transaction hash:    0x575c4e7023d2a4536337556d5e9cd07c9c46af8b0efbab3821026305a42c3764
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x4975415603247b763A9a315E23923fE29f4BD220
+   > block number:        8254426
+   > block timestamp:     1616049603
+   > account:             0x0BC85Ee983E7098Ceb32a775B81299f047d54e8b
+   > balance:             156.484596981
+   > gas used:            3744916 (0x392494)
+   > gas price:           21 gwei
+   > value sent:          0 ETH
+   > total cost:          0.078643236 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:         0.078643236 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.083263971 ETH

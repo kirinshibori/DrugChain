@@ -13,11 +13,7 @@
 		- [Transaction Hashes](#transaction-hashes)
 		- [Etherscan screenshots](#etherscan-screenshots)
 - [Frontend](#frontend)
-<<<<<<< Updated upstream
 	- [Frontend Online - Vue](#frontend-online---vue))
-=======
-	- [Frontend Online - Vue](#frontend-online---vue)
->>>>>>> Stashed changes
 	- [Frontend screenshots](#frontend-screenshots)
 
 # Smart Contract - step by step
@@ -234,11 +230,7 @@ Then follow the instruction in [link](../appvue/)
 ## Frontend Online - Vue
 
 Following there is a online version of Fronted deployed in GitHub pages:
-<<<<<<< Updated upstream
-[https://lucribas.github.io/prj3_Dapp_Supply_Chain/index.html](https://lucribas.github.io/prj3_Dapp_Supply_Chain/index.html).
-=======
 [https://kirinshibori.github.io/DrugChainUI/](https://kirinshibori.github.io/DrugChainUI/).
->>>>>>> Stashed changes
 
 
 ## Frontend screenshots

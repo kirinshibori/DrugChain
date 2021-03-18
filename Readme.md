@@ -126,19 +126,18 @@ Modify client code to interact with a smart contract
 ## Frontend Online - Vue
 
 Following there is a online version of Fronted deployed in GitHub pages:
-[https://lucribas.github.io/prj3_Dapp_Supply_Chain/index.html](https://lucribas.github.io/prj3_Dapp_Supply_Chain/index.html).
+[https://kirinshibori.github.io/DrugChainUI/](https://kirinshibori.github.io/DrugChainUI/).
 
 ## Frontend screenshots
 
-
-
+![alt text](docs/frontend_1.png "Token")
 
 
 ## Optional: Implement Infura to store product image
 
 Optional: Implement Infura to store product image
 
-Ex: Farmer harvests coffee and upload pics w/ UPC hash
+Ex: Manufacturer uploads Drug pics w/ UPC hash
 Potentially only 2 methods needed upload() and read()
 
 

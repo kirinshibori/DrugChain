@@ -13,11 +13,11 @@ contract('SupplyChain', (accs) => {
 
 // Accounts
 let acc_owner = accounts[0];	// Contract Owner account
-let acc_farm_0 = accounts[1];	// Supplier account
-let acc_prod_0 = accounts[2];	// Manufacturer account
-let acc_insp_0 = accounts[3];	// Inspector account
-let acc_dist_0 = accounts[4];	// Distributor account
-let acc_cons_0 = accounts[5];	// Consumer account
+let acc_supplier_0 = accounts[1];	// Supplier account
+let acc_manufacturer_0 = accounts[2];	// Manufacturer account
+let acc_inspector_0 = accounts[3];	// Inspector account
+let acc_distributor_0 = accounts[4];	// Distributor account
+let acc_retailer_0 = accounts[5];	// Retailer account
 
 let instance = null;
 
@@ -29,254 +29,233 @@ describe('Programmatic usage suite', function () {
 			this.timeout(20000);
 
 			instance = await SupplyChain.deployed();
-			await instance.addFarmer(acc_farm_0, { from: acc_owner });
-			await instance.addProducer(acc_prod_0, { from: acc_owner });
-			await instance.addInspector(acc_insp_0, { from: acc_owner });
-			await instance.addDistributor(acc_dist_0, { from: acc_owner });
-			await instance.addConsumer(acc_cons_0, { from: acc_owner });
+			await instance.addSupplier(acc_supplier_0, { from: acc_owner });
+			await instance.addManufacturer(acc_manufacturer_0, { from: acc_owner });
+			await instance.addInspector(acc_inspector_0, { from: acc_owner });
+			await instance.addDistributor(acc_distributor_0, { from: acc_owner });
+			await instance.addRetailer(acc_retailer_0, { from: acc_owner });
 
 			let upc = 1;
-			let ownerID = acc_farm_0;
-			let originFarmerID = acc_farm_0;
-			let originFarmName = "Aurora Farm";
-			let originFarmInformation = "Bento Goncalves";
-			let originFarmLatitude = "34.12345543";
-			let originFarmLongitude = "34.12345543";
-			let harvestNotes = "";
+			let ownerID = acc_supplier_0;
+			let originSupplierID = acc_supplier_0;
+			let originSupplierName = "GlaxoSmithKline";
+			let originSupplierInformation = "38 Quality Rd, Singapore 618809";
+			let originSupplierLatitude = "1.335232";
+			let originSupplierLongitude = "103.6924815";
+			let produceNotes = "";
 			let auditNotes = "";
 			let itemState = 0;
 
 			// Source raw material
-			let plant = await instance.grapePlantItem(upc,
-				originFarmerID,
-				originFarmName,
-				originFarmInformation,
-				originFarmLatitude,
-				originFarmLongitude,
-				{ from: acc_farm_0 });
+			let source = await instance.ingredientSourceItem(upc,
+				originSupplierID,
+				originSupplierName,
+				originSupplierInformation,
+				originSupplierLatitude,
+				originSupplierLongitude,
+				{ from: acc_supplier_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchGrapeItemBufferOne.call(upc);
-			let res2 = await instance.fetchGrapeItemBufferTwo.call(upc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res2, 'result buffer 2');
+			let res1 = await instance.fetchIngredientItemBufferOne.call(upc);
+			let res2 = await instance.fetchIngredientItemBufferTwo.call(upc);
 
 			// Check results
 			assert.equal(res1.upc, upc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
-			assert.equal(res1.originFarmerID, originFarmerID, 'Error: Missing or Invalid originFarmerID');
-			assert.equal(res1.originFarmName, originFarmName, 'Error: Missing or Invalid originFarmName');
-			assert.equal(res1.originFarmInformation, originFarmInformation, 'Error: Missing or Invalid originFarmInformation');
-			assert.equal(res1.originFarmLatitude, originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude');
-			assert.equal(res1.originFarmLongitude, originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude');
-			assert.equal(res2.harvestNotes, harvestNotes, 'Error: Missing or Invalid harvestNotes');
+			assert.equal(res1.originSupplierID, originSupplierID, 'Error: Missing or Invalid originSupplierID');
+			assert.equal(res1.originSupplierName, originSupplierName, 'Error: Missing or Invalid originSupplierName');
+			assert.equal(res1.originSupplierInformation, originSupplierInformation, 'Error: Missing or Invalid originSupplierInformation');
+			assert.equal(res1.originSupplierLatitude, originSupplierLatitude, 'Error: Missing or Invalid originSupplierLatitude');
+			assert.equal(res1.originSupplierLongitude, originSupplierLongitude, 'Error: Missing or Invalid originSupplierLongitude');
+			assert.equal(res2.produceNotes, produceNotes, 'Error: Missing or Invalid produceNotes');
 			assert.equal(res2.auditNotes, auditNotes, 'Error: Missing or Invalid auditNotes');
 			assert.equal(res2.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(plant, 'GrapePlanted');
+			truffleAssert.eventEmitted(source, 'IngredientSourced');
 		});
 
 
 		it('can the Supplier produce a pharmaceutical ingredient', async function () {
 			this.timeout(20000);
 			let upc = 1;
-			let ownerID = acc_farm_0;
-			let originFarmerID = acc_farm_0;
-			let harvestNotes = "bordo wine";
+			let ownerID = acc_supplier_0;
+			let originSupplierID = acc_supplier_0;
+			let produceNotes = "Paracetamol 500mg";
 			let itemState = 1;
-			let harvest = await instance.grapeHarvestItem(upc, harvestNotes, { from: acc_farm_0 });
+			let produce = await instance.ingredientProduceItem(upc, produceNotes, { from: acc_supplier_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchGrapeItemBufferOne.call(upc);
-			let res2 = await instance.fetchGrapeItemBufferTwo.call(upc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res2, 'result buffer 2');
+			let res1 = await instance.fetchIngredientItemBufferOne.call(upc);
+			let res2 = await instance.fetchIngredientItemBufferTwo.call(upc);
 
 			assert.equal(res1.upc, upc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
-			assert.equal(res1.originFarmerID, originFarmerID, 'Error: Missing or Invalid originFarmerID');
-			assert.equal(res2.harvestNotes, harvestNotes, 'Error: Missing or Invalid harvestNotes');
+			assert.equal(res1.originSupplierID, originSupplierID, 'Error: Missing or Invalid originSupplierID');
+			assert.equal(res2.produceNotes, produceNotes, 'Error: Missing or Invalid produceNotes');
 			assert.equal(res2.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(harvest, 'GrapeHarvested');		});
+			truffleAssert.eventEmitted(produce, 'IngredientProduced');		});
 
 		it('can the Inspector audit an ingredient', async function () {
 			this.timeout(20000);
 			let upc = 1;
-			let ownerID = acc_farm_0;
-			let originFarmerID = acc_farm_0;
+			let ownerID = acc_supplier_0;
+			let originSupplierID = acc_supplier_0;
 			let auditNotes = "ISO9002 audit passed";
 			let itemState = 2;
-			let audited = await instance.grapeAuditItem(upc, auditNotes, { from: acc_insp_0 });
+			let audited = await instance.ingredientAuditItem(upc, auditNotes, { from: acc_inspector_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchGrapeItemBufferOne.call(upc);
-			let res2 = await instance.fetchGrapeItemBufferTwo.call(upc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res2, 'result buffer 2');
+			let res1 = await instance.fetchIngredientItemBufferOne.call(upc);
+			let res2 = await instance.fetchIngredientItemBufferTwo.call(upc);
 
 			assert.equal(res1.upc, upc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
-			assert.equal(res1.originFarmerID, originFarmerID, 'Error: Missing or Invalid originFarmerID');
+			assert.equal(res1.originSupplierID, originSupplierID, 'Error: Missing or Invalid originSupplierID');
 			assert.equal(res2.auditNotes, auditNotes, 'Error: Missing or Invalid auditNotes');
 			assert.equal(res2.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(audited, 'GrapeAudited');		});
+			truffleAssert.eventEmitted(audited, 'IngredientAudited');		});
 
 		it('can the Supplier process an ingredient', async function () {
 			this.timeout(20000);
 			let upc = 1;
-			let ownerID = acc_farm_0;
-			let originFarmerID = acc_farm_0;
+			let ownerID = acc_supplier_0;
+			let originSupplierID = acc_supplier_0;
 			let itemState = 3;
-			let processed = await instance.grapeProcessItem(upc, { from: acc_farm_0 });
+			let processed = await instance.ingredientProcessItem(upc, { from: acc_supplier_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchGrapeItemBufferOne.call(upc);
-			let res2 = await instance.fetchGrapeItemBufferTwo.call(upc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res2, 'result buffer 2');
+			let res1 = await instance.fetchIngredientItemBufferOne.call(upc);
+			let res2 = await instance.fetchIngredientItemBufferTwo.call(upc);
 
 			assert.equal(res1.upc, upc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
-			assert.equal(res1.originFarmerID, originFarmerID, 'Error: Missing or Invalid originFarmerID');
+			assert.equal(res1.originSupplierID, originSupplierID, 'Error: Missing or Invalid originSupplierID');
 			assert.equal(res2.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(processed, 'GrapeProcessed');
+			truffleAssert.eventEmitted(processed, 'IngredientProcessed');
 		});
 
 		it('can the Manufacturer create a Drug', async function () {
 			this.timeout(20000);
 			let upc = 1;
 			let productID = 1001;
-			let ownerID = acc_prod_0;
+			let ownerID = acc_manufacturer_0;
 			let itemState = 0;
-			let created = await instance.juiceCreateItem(upc, productID, { from: acc_prod_0 });
+			let created = await instance.drugCreateItem(upc, productID, { from: acc_manufacturer_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchJuiceItemBufferOne.call(upc);
-			// console.log(res1, 'result buffer 1');
+			let res1 = await instance.fetchDrugItemBufferOne.call(upc);
 
 			assert.equal(res1.upc, upc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.productID, productID, 'Error: Missing or Invalid productID');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(created, 'JuiceCreated');
+			truffleAssert.eventEmitted(created, 'DrugCreated');
 		});
 
 		it('can the Manufacturer refine a drug', async function () {
 			this.timeout(20000);
-			let juiceUpc = 1;
-			let grapeUpc = 1;
+			let drugUpc = 1;
+			let ingredientUpc = 1;
 			let productID = 1001;
-			let ownerID = acc_prod_0;
+			let ownerID = acc_manufacturer_0;
 			let itemState = 1;
-			let blended = await instance.juiceBlendItem(juiceUpc, grapeUpc, { from: acc_prod_0 });
+			let refined = await instance.drugRefineItem(drugUpc, ingredientUpc, { from: acc_manufacturer_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchJuiceItemBufferOne.call(juiceUpc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res1.grapes, 'grapes');
+			let res1 = await instance.fetchDrugItemBufferOne.call(drugUpc);
 
-			assert.equal(res1.upc, juiceUpc, 'Error: Invalid item UPC');
+			assert.equal(res1.upc, drugUpc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.productID, productID, 'Error: Missing or Invalid productID');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			assert.equal(res1.grapes[0], grapeUpc, 'Error: Invalid item grapeUpc');
-			truffleAssert.eventEmitted(blended, 'JuiceBlended');
+			assert.equal(res1.ingredients[0], ingredientUpc, 'Error: Invalid item ingredientUpc');
+			truffleAssert.eventEmitted(refined, 'DrugRefined');
 		});
 
-		it('can the Manufacturer produce a Drug', async function () {
+		it('can the Manufacturer manufacture a Drug', async function () {
 			this.timeout(20000);
-			let juiceUpc = 1;
-			let productNotes = "Organic Grape Juice";
+			let drugUpc = 1;
+			let productNotes = "Panadol 500mg tablets";
 			let productPrice = 26;
-			let ownerID = acc_prod_0;
+			let ownerID = acc_manufacturer_0;
 			let itemState = 2;
-			let produced = await instance.juiceProduceItem(juiceUpc, productNotes, productPrice, { from: acc_prod_0 });
+			let manufactured = await instance.drugManufactureItem(drugUpc, productNotes, productPrice, { from: acc_manufacturer_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchJuiceItemBufferOne.call(juiceUpc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res1.grapes, 'grapes');
+			let res1 = await instance.fetchDrugItemBufferOne.call(drugUpc);
 
-			assert.equal(res1.upc, juiceUpc, 'Error: Invalid item UPC');
+			assert.equal(res1.upc, drugUpc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.productNotes, productNotes, 'Error: Missing or Invalid productNotes');
 			assert.equal(res1.productPrice, productPrice, 'Error: Missing or Invalid productPrice');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(produced, 'JuiceProduced');
+			truffleAssert.eventEmitted(manufactured, 'DrugManufactured');
 		});
 
 		it('can the Inspector certify a Drug', async function () {
 			this.timeout(20000);
-			let juiceUpc = 1;
+			let drugUpc = 1;
 			let certifyNotes = "ISO9002 Certified";
-			let ownerID = acc_prod_0;
+			let ownerID = acc_manufacturer_0;
 			let itemState = 3;
-			let certified = await instance.juiceCertifyItem(juiceUpc, certifyNotes, { from: acc_insp_0 });
+			let certified = await instance.drugCertifyItem(drugUpc, certifyNotes, { from: acc_inspector_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchJuiceItemBufferOne.call(juiceUpc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res1.grapes, 'grapes');
+			let res1 = await instance.fetchDrugItemBufferOne.call(drugUpc);
 
-			assert.equal(res1.upc, juiceUpc, 'Error: Invalid item UPC');
+			assert.equal(res1.upc, drugUpc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.certifyNotes, certifyNotes, 'Error: Missing or Invalid certifyNotes');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(certified, 'JuiceCertified');
+			truffleAssert.eventEmitted(certified, 'DrugCertified');
 		});
 
 		it('can the Manufacturer pack a Drug', async function () {
 			this.timeout(20000);
-			let juiceUpc = 1;
-			let ownerID = acc_prod_0;
+			let drugUpc = 1;
+			let ownerID = acc_manufacturer_0;
 			let itemState = 4;
-			let packed = await instance.juicePackItem(juiceUpc, { from: acc_prod_0 });
+			let packed = await instance.drugPackItem(drugUpc, { from: acc_manufacturer_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchJuiceItemBufferOne.call(juiceUpc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res1.grapes, 'grapes');
+			let res1 = await instance.fetchDrugItemBufferOne.call(drugUpc);
 
-			assert.equal(res1.upc, juiceUpc, 'Error: Invalid item UPC');
+			assert.equal(res1.upc, drugUpc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(packed, 'JuicePacked');
+			truffleAssert.eventEmitted(packed, 'DrugPacked');
 		});
 
-		it('can the Distributor sell a Drug', async function () {
+		it('can the Distributor distribute a Drug', async function () {
 			this.timeout(20000);
-			let juiceUpc = 1;
-			let ownerID = acc_prod_0;
+			let drugUpc = 1;
+			let ownerID = acc_manufacturer_0;
 			let itemState = 5;
-			let forsale = await instance.juiceSellItem(juiceUpc, { from: acc_dist_0 });
+			let fordistribution = await instance.drugDistributeItem(drugUpc, { from: acc_distributor_0 });
 
 			// Read the result from blockchain
-			let res1 = await instance.fetchJuiceItemBufferOne.call(juiceUpc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res1.grapes, 'grapes');
+			let res1 = await instance.fetchDrugItemBufferOne.call(drugUpc);
 
-			assert.equal(res1.upc, juiceUpc, 'Error: Invalid item UPC');
+			assert.equal(res1.upc, drugUpc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(forsale, 'JuiceForSale');
+			truffleAssert.eventEmitted(fordistribution, 'DrugForDistribution');
 		});
 
-		it('can the Consumer buy a Drug', async function () {
+		it('can the Retailer purchase a Drug', async function () {
 			this.timeout(20000);
-			let juiceUpc = 1;
-			let ownerID = acc_cons_0;
+			let drugUpc = 1;
+			let ownerID = acc_retailer_0;
 			let itemState = 6;
-			let res1 = await instance.fetchJuiceItemBufferOne.call(juiceUpc);
-			let purchased = await instance.juiceBuyItem(juiceUpc, { from: acc_cons_0, value: res1.productPrice });
+			let res1 = await instance.fetchDrugItemBufferOne.call(drugUpc);
+			let purchased = await instance.drugPurchaseItem(drugUpc, { from: acc_retailer_0, value: res1.productPrice });
 
 			// Read the result from blockchain
-			res1 = await instance.fetchJuiceItemBufferOne.call(juiceUpc);
-			// console.log(res1, 'result buffer 1');
-			// console.log(res1.grapes, 'grapes');
+			res1 = await instance.fetchDrugItemBufferOne.call(drugUpc);
 
-			assert.equal(res1.upc, juiceUpc, 'Error: Invalid item UPC');
+			assert.equal(res1.upc, drugUpc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(purchased, 'JuicePurchased');
+			truffleAssert.eventEmitted(purchased, 'DrugPurchased');
 		});
 	});
 });

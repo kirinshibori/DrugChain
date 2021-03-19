@@ -167,7 +167,7 @@ describe('Programmatic usage suite', function () {
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.productID, productID, 'Error: Missing or Invalid productID');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			assert.equal(res1.ingredients[0], ingredientUpc, 'Error: Invalid item ingredientUpc');
+			assert.equal(res1.ingredient[0], ingredientUpc, 'Error: Invalid item ingredientUpc');
 			truffleAssert.eventEmitted(refined, 'DrugRefined');
 		});
 
@@ -238,7 +238,7 @@ describe('Programmatic usage suite', function () {
 			assert.equal(res1.upc, drugUpc, 'Error: Invalid item UPC');
 			assert.equal(res1.ownerID, ownerID, 'Error: Missing or Invalid ownerID');
 			assert.equal(res1.itemState, itemState, 'Error: Invalid item State');
-			truffleAssert.eventEmitted(fordistribution, 'DrugForDistribution');
+			truffleAssert.eventEmitted(fordistribution, 'DrugDistributed');
 		});
 
 		it('can the Retailer purchase a Drug', async function () {

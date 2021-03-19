@@ -25,7 +25,7 @@ Choosen supply chain: Drug
 | UML entity  | Details |
 |:-------:|:--------|
 | Asset | Ingredient,<br>Drug |
-| Attributes | Ingredient:<br>- Current location<br>- Ownership<br>- Quantity available (kg)<br>- Geographical origin<br>- Date of production<br>- Ingredient notes<br>- Authenticity Third-party certifying body: FDA, HSA, etc<br><br>Drug:<br>- SKU<br>- Pack: units<br>- Location<br>- Ownership<br>- Drug name<br>- Active ingredients<br>- - Country of manufacture<br>- Manufacturer<br>- Date of manufacture<br>- Date of expiry<br>- Authenticity Third-party certifying body: FDA, HSA, etc<br> |
+| Attributes | Ingredient:<br>- Current location<br>- Ownership<br>- Quantity available (kg)<br>- Geographical origin<br>- Date of production<br>- Ingredient notes<br>- Authenticity Third-party certifying body: FDA, HSA, etc<br><br>Drug:<br>- SKU<br>- Pack: units<br>- Location<br>- Ownership<br>- Drug name<br>- Active ingredients<br>- Country of manufacture<br>- Manufacturer<br>- Date of manufacture<br>- Date of expiry<br>- Authenticity Third-party certifying body: FDA, HSA, etc<br> |
 | Business Actions | Sourcing<br>Authenticity Certifying<br>Production<br>Distribution<br> |
 | Role Permissions | Supplier<br>Inspector<br>Manufacturer<br>Distributor<br>Retailer |
 
@@ -79,8 +79,8 @@ CRITERIA
 |:-------|:--------|:--------:|
 | SupplyChain.sol contains required tracking functions. | Smart contract implements functions to track.<br>For example:<br>- Product ID<br>- Product UPC<br>- Origination Information<br>- Supplier<br>- Misc organization info<br>- Longitude & Latitude of geo coordinates<br>- Product notes  | :ok_hand: |
 | Ownable.sol contains required functions that establish owner and the transfer of ownership. | Ownable.sol has required functions that establish owner and the transfer of ownership.  | :ok_hand: |
-| ConsumerRole.sol contains required functions that manage the Retailer role. | ConsumerRole.sol has required functions that manage the Retailer role.  | :ok_hand: |
-| ProducerRole.sol contains required functions that manage the Manufacturer role. | ProducerRole.sol has required functions that manage the Manufacturer role.  | :ok_hand: |
+| RetailerRole.sol contains required functions that manage the Retailer role. | RetailerRole.sol has required functions that manage the Retailer role.  | :ok_hand: |
+| ManufacturerRole.sol contains required functions that manage the Manufacturer role. | ManufacturerRole.sol has required functions that manage the Manufacturer role.  | :ok_hand: |
 | DistributorRole.sol contains required functions that manage the Distributor role. | DistributorRole.sol has required functions that manage the Distributor role.  | :ok_hand: |
 | Additional roles implemented are integrated correctly. | Student has implemented additional roles correctly.  | :ok_hand: |
 
